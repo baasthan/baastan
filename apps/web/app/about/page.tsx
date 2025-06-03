@@ -1,7 +1,13 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import DigitalHome from "../../public/digital-home.svg";
 import ListHome from "../../public/list-home.svg";
 import SmartHome from "../../public/smart-home-platform.svg";
+
+export const metadata: Metadata = {
+  title: "About Us",
+};
+
 function About() {
   return (
     <div className="relative flex flex-col items-center gap-y-10 p-2">
