@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   applicationName: "Baasthan",
   description:
     "Baasthan helps students and professionals find affordable, verified PGs and rentals through a smart, hassle-free digital housing platform.",
+  icons: "/logo.svg",
 };
 
 export default function RootLayout({
