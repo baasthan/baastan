@@ -5,8 +5,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
    * Note: This needs to be changed while moving to any other hosting provider. This value should be available during build time
    */
   const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}/`
-    : "http://localhost:3000/";
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000";
 
   return [
     {
