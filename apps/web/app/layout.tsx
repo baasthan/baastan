@@ -1,5 +1,6 @@
 import AppShell from "@/components/app-shell";
-import "@workspace/ui/globals.css";
+import "@/styles/globals.css";
+// import "@workspace/ui/globals.css";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -13,7 +13,10 @@ const AppShell = ({ children }: AppShellProps) => {
       <header className="sticky top-0 bg-white z-10">
         <TopNav />
       </header>
-      <main className="max-w-6xl mx-auto">{children}</main>
+
+      <main className="max-w-6xl mx-auto max-h-[calc(100svh-3.5rem)]">
+        {children}
+      </main>
       <footer></footer>
     </>
   );
