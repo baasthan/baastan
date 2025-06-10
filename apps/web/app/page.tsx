@@ -4,7 +4,7 @@ import Amenities from "@/components/amenities";
 import HomeHero1 from "@/components/home-hero-1";
 import HomeHero2 from "@/components/home-hero-2";
 import { motion } from "framer-motion";
-import { ShieldCheck, BedDouble, Smile } from "lucide-react";
+import { BedDouble, ShieldCheck, Smile } from "lucide-react";
 
 export default function Page() {
   return (
@@ -53,7 +53,8 @@ function WhyBaasthan() {
         </motion.h2>
 
         <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-          Baasthan is a trustworthy PG service designed for your comfort and peace of mind. We focus on making your stay{" "}
+          Baasthan is a trustworthy PG service designed for your comfort and
+          peace of mind. We focus on making your stay{" "}
           <span className="font-medium text-primary">safe</span>,{" "}
           <span className="font-medium text-primary">cozy</span>, and{" "}
           <span className="font-medium text-primary">stress-free</span>.
