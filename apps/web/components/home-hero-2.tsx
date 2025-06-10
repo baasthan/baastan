@@ -27,10 +27,10 @@ const HomeHero2 = () => {
         </h1>
       </div>
       <div
-        className="flex flex-col lg:flex-row gap-10 "
+        className="flex flex-col lg:flex-row justify-between w-full gap-10 "
         id="hero_section_2_content"
       >
-        <Card>
+        <Card className="hover:shadow-md">
           <CardHeader>
             <h3 className="text-2xl font-semibold text-center">
               Verified PGs for students & professionals
@@ -44,7 +44,7 @@ const HomeHero2 = () => {
             />
           </CardDescription>
         </Card>
-        <Card className="hero_section_2_content_service">
+        <Card className="hover:shadow-md">
           <CardHeader>
             <h3 className="text-2xl font-semibold text-center">
               Affordable apartment rentals
@@ -58,7 +58,7 @@ const HomeHero2 = () => {
             />
           </CardDescription>
         </Card>
-        <Card className="hero_section_2_content_service">
+        <Card className="hover:shadow-md">
           <CardHeader>
             <h3 className="text-2xl font-semibold text-center">
               Smart listings with real-time availability
