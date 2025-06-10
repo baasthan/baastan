@@ -15,7 +15,6 @@ export default function Page() {
         <HomeHero2 />
         <Amenities />
       </div>
-
       {/* Amenities Card - Bottom Right */}
 
       {/* Why Baasthan - Bottom Left */}
