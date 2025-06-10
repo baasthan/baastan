@@ -28,3 +28,30 @@ export default function Page() {
     </div>
   );
 }
+const services = [
+  {
+    name: "Wi-Fi",
+    description: "High-speed internet available 24/7.",
+    icon: "📶",
+  },
+  {
+    name: "Private Balcony",
+    description: "Relax with fresh air and a scenic view.",
+    icon: "🌇",
+  },
+  {
+    name: "Laundry Service",
+    description: "On-site washing and drying available.",
+    icon: "🧺",
+  },
+  {
+    name: "Food Delivery",
+    description: "Tasty meals delivered to your doorstep.",
+    icon: "🍽️",
+  },
+  {
+    name: "Hot Water",
+    description: "24/7 hot water in all rooms.",
+    icon: "♨️",
+  },
+];
