@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 const amenities = [
   {
     title: "Wi-Fi",
@@ -26,31 +28,68 @@ const amenities = [
     description: "24/7 hot water in all rooms.",
     emoji: "♨️",
   },
+  {
+    title: "Spacious Rooms",
+    description: "Enjoy plenty of space to breathe and relax.",
+    emoji: "🛏️",
+  },
 ];
 
 export default function Amenities() {
   return (
-    <section className=" flex flex-col gap-10 items-center">
-      <h2 className="text-4xl font-semibold text-primary">Our Amenities</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-3">
+    <section className="flex flex-col gap-10 items-center">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="text-4xl font-semibold text-primary"
+      >
+        Our Amenities
+      </motion.h2>
+
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-6xl gap-6"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          visible: {
+            transition: {
+              staggerChildren: 0.15,
+            },
+          },
+        }}
+      >
         {amenities.map((item, index) => (
-          <div
+          <motion.div
             key={index}
-            className="border rounded-md p-3 shadow hover:shadow-md transition"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="group border p-6 bg-white rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform"
           >
-            <div className="flex flex-row gap-4 items-center">
-              <span
-                className="text-2xl transition-transform duration-300 ease-in-out group-hover:scale-125 group-hover:-translate-y-1"
-                style={{ display: "inline-block" }}
+            <div className="flex items-center gap-4 mb-2">
+              <motion.span
+                className="text-3xl"
+                whileHover={{ scale: 1.2, rotate: 10 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
                 {item.emoji}
-              </span>
-              <div className="text-2xl font-semibold">{item.title}</div>
+              </motion.span>
+              <h3 className="text-xl font-bold group-hover:text-blue-500 transition-colors duration-200">
+                {item.title}
+              </h3>
             </div>
-            <p className="text-sm text-gray-600">{item.description}</p>
-          </div>
+            <p className="text-sm text-gray-600 transition-all duration-300 group-hover:opacity-90 group-hover:-translate-y-1">
+              {item.description}
+            </p>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }
