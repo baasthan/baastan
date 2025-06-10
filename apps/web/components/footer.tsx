@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Input } from "../../../packages/ui/src/components/input";
-import { Textarea } from "../../../packages/ui/src/components/textarea";
+import { Textarea as ShadcnTextarea } from "../../../packages/ui/src/components/textarea";
 import { Button } from "../../../packages/ui/src/components/button";
 
 export default function Footer() {
@@ -37,7 +37,7 @@ export default function Footer() {
                 className="w-full p-2 mb-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none"
                 required
               />
-              <Textarea
+              <ShadcnTextarea
                 placeholder="Your Message"
                 className="w-full p-2 mb-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none"
                 rows={3}
