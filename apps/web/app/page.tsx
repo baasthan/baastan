@@ -1,34 +1,9 @@
-"use client";
-
-import Amenities from "@/components/amenities";
-import HomeHero1 from "@/components/home-hero-1";
-import HomeHero2 from "@/components/home-hero-2";
-import { motion } from "framer-motion";
-import { ShieldCheck, BedDouble, Smile } from "lucide-react";
-
 export default function Page() {
   return (
-    <div className="flex flex-col">
-      <HomeHero1 />
-      <div className="flex flex-col gap-10">
-        <WhyBaasthan />
-        <HomeHero2 />
-        <Amenities />
+    <div className="flex items-center justify-center min-h-svh">
+      <div className="flex flex-col items-center justify-center gap-4">
+        <h1 className="text-2xl font-bold">Under Construction 🚧</h1>
       </div>
-
-      {/* Amenities Card - Bottom Right */}
-
-      {/* Why Baasthan - Bottom Left */}
-      {/* <div className="fixed bottom-6 left-6 w-80 p-6 bg-white border border-black rounded-lg shadow-md z-50 transition-transform duration-700 ease-out hover:-translate-y-1 hover:shadow-lg">
-        <h2 className="text-2xl font-bold text-black mb-2 flex items-center gap-2">
-          Why Baasthan? <span className="text-2xl">❓</span>
-        </h2>
-        <p className="text-sm text-black leading-relaxed">
-          Baasthan is a trustworthy PG service that ensures safety, comfort, and
-          reliability for all its residents. We keep your peace of mind as our
-          top priority.
-        </p>
-      </div> */}
     </div>
   );
 }
@@ -53,7 +28,8 @@ function WhyBaasthan() {
         </motion.h2>
 
         <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-          Baasthan is a trustworthy PG service designed for your comfort and peace of mind. We focus on making your stay{" "}
+          Baasthan is a trustworthy PG service designed for your comfort and
+          peace of mind. We focus on making your stay{" "}
           <span className="font-medium text-primary">safe</span>,{" "}
           <span className="font-medium text-primary">cozy</span>, and{" "}
           <span className="font-medium text-primary">stress-free</span>.
