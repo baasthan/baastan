@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Footer from "./footer";
 import TopNav from "./top-nav";
 
 interface AppShellProps {
@@ -13,11 +14,8 @@ const AppShell = ({ children }: AppShellProps) => {
       <header className="sticky top-0 bg-white z-10">
         <TopNav />
       </header>
-
-      <main className="max-w-6xl mx-auto max-h-[calc(100svh-3.5rem)] p-2 lg:p-0">
-        {children}
-      </main>
-      <footer></footer>
+      <main className="max-w-7xl mx-auto w-full px-4 flex-1">{children}</main>
+      <Footer />
     </>
   );
 };
