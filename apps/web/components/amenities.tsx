@@ -32,7 +32,7 @@ export default function Amenities() {
   return (
     <section className=" flex flex-col gap-10 items-center">
       <h2 className="text-4xl font-semibold text-primary">Our Amenities</h2>
-      <div className="grid grid-cols-3 w-full gap-3">
+      <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-3">
         {amenities.map((item, index) => (
           <div
             key={index}
