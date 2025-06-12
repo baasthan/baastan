@@ -33,6 +33,10 @@ const TopNav = () => {
             <Link href="/contact">Contacts</Link>
           </Button>
 
+          <Button variant="link" asChild>
+            <Link href="/blogs">Blogs</Link>
+          </Button>
+
           <Button>Login</Button>
           <Button variant="outline">Sign Up</Button>
         </div>
