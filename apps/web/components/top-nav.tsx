@@ -7,14 +7,14 @@ import Logo from "../public/logo.svg";
 const TopNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border-b p-2 ">
+    <div className="border-b p-2 w-full">
       <nav className="flex flex-row justify-between mx-auto max-w-6xl">
         <Link
           href="/"
           className="flex flex-row text-2xl font-semibold items-center gap-1"
         >
           <Image src={Logo} alt="Baasthan" className="h-7 w-7" />
-          <span>Baasthan</span>
+          <span className="text-primary">Baasthan</span>
         </Link>
         <Button
           variant="ghost"
