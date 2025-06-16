@@ -16,7 +16,14 @@ const QuesPage = () => {
                 {index + 1}. {question.title}
               </p>
 
-              <div className={question.layout}>
+              {/* Responsive layout: for questions with grid layout, show 3 columns on desktop and 1 column on mobile */}
+              <div
+                className={
+                  question.layout.includes("grid")
+                    ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                    : "space-y-2"
+                }
+              >
                 {question.options.map((option, i) => (
                   <label
                     key={i}
@@ -27,7 +34,7 @@ const QuesPage = () => {
                       name={question.name}
                       className="mt-1 accent-indigo-600"
                     />
-                    <span>{option}</span>
+                    <span className="break-words">{option}</span>
                   </label>
                 ))}
 
@@ -62,21 +69,21 @@ const questions = [
     name: "userType",
     multiple: false,
     layout: "space-y-2",
-    options: ["Working Professional", "Student"]
+    options: ["Working Professional", "Student"],
   },
   {
     title: "Gender:",
     name: "gender",
     multiple: false,
     layout: "space-y-2",
-    options: ["Male", "Female"]
+    options: ["Male", "Female"],
   },
   {
     title: "Age group:",
     name: "age",
     multiple: false,
     layout: "space-y-2",
-    options: ["Below 20", "21–25", "26–30", "Above 30"]
+    options: ["Below 20", "21–25", "26–30", "Above 30"],
   },
   {
     title: "Who manages your current PG?",
@@ -87,16 +94,16 @@ const questions = [
       "Company-operated PG (e.g., Stanza, Zolo)",
       "Local individual owner",
       "Managed by a college/university",
-      "Other:"
+      "Other:",
     ],
-    includeTextInput: true
+    includeTextInput: true,
   },
   {
     title: "Type of PG you are currently living in:",
     name: "pgType",
     multiple: false,
     layout: "space-y-2",
-    options: ["Only Male", "Only Female", "Co-ed (Both genders)"]
+    options: ["Only Male", "Only Female", "Co-ed (Both genders)"],
   },
   {
     title: "Monthly rent you currently pay (including food and utilities):",
@@ -108,54 +115,83 @@ const questions = [
       "₹5,001–₹7,000",
       "₹7,001–₹10,000",
       "₹10,001–₹15,000",
-      "Above ₹15,000"
-    ]
+      "Above ₹15,000",
+    ],
   },
   {
-    title: "Which amenities are currently provided in your PG? (Select all that apply)",
+    title:
+      "Which amenities are currently provided in your PG? (Select all that apply)",
     name: "amenities",
     multiple: true,
     layout: "grid grid-cols-2 gap-2",
     options: [
-      "Wi-Fi", "Laundry service", "Housekeeping", "Meals (Breakfast/Lunch/Dinner)",
-      "CCTV Security", "Air Conditioning", "Power backup", "Geyser/Hot Water",
-      "Parking", "Recreational/Common Area", "Gym/Fitness Facilities", "Personal Wardrobe", "Study Table"
-    ]
+      "Wi-Fi",
+      "Laundry service",
+      "Housekeeping",
+      "Meals (Breakfast/Lunch/Dinner)",
+      "CCTV Security",
+      "Air Conditioning",
+      "Power backup",
+      "Geyser/Hot Water",
+      "Parking",
+      "Recreational/Common Area",
+      "Gym/Fitness Facilities",
+      "Personal Wardrobe",
+      "Study Table",
+    ],
   },
   {
     title: "Are you satisfied with the amenities provided?",
     name: "satisfaction",
     multiple: false,
     layout: "space-y-2",
-    options: ["Yes", "No"]
+    options: ["Yes", "No"],
   },
   {
-    title: "What problems are you currently facing in your PG? (Select all that apply)",
+    title:
+      "What problems are you currently facing in your PG? (Select all that apply)",
     name: "problems",
     multiple: true,
     layout: "grid grid-cols-2 gap-2",
     options: [
-      "Poor hygiene/cleanliness", "Water issues", "Irregular food quality/timing",
-      "Wi-Fi not working properly", "Power cuts", "Lack of security",
-      "Unresponsive PG management", "Overcrowding", "Noise issues", "No major problems"
-    ]
+      "Poor hygiene/cleanliness",
+      "Water issues",
+      "Irregular food quality/timing",
+      "Wi-Fi not working properly",
+      "Power cuts",
+      "Lack of security",
+      "Unresponsive PG management",
+      "Overcrowding",
+      "Noise issues",
+      "No major problems",
+    ],
   },
   {
     title: "What type of PG would you prefer to stay in?",
     name: "pgPreference",
     multiple: false,
     layout: "space-y-2",
-    options: ["Only Male", "Only Female", "Co-live (Both genders)", "No preference"]
+    options: [
+      "Only Male",
+      "Only Female",
+      "Co-live (Both genders)",
+      "No preference",
+    ],
   },
   {
-    title: "How much would you be willing to pay monthly for a well-maintained PG with all necessary amenities?",
+    title:
+      "How much would you be willing to pay monthly for a well-maintained PG with all necessary amenities?",
     name: "willingRent",
     multiple: false,
     layout: "space-y-2",
     options: [
-      "Less than ₹5,000", "₹5,001–₹7,000", "₹7,001–₹10,000",
-      "₹10,001–₹15,000", "₹15,001–₹20,000", "More than ₹20,000"
-    ]
+      "Less than ₹5,000",
+      "₹5,001–₹7,000",
+      "₹7,001–₹10,000",
+      "₹10,001–₹15,000",
+      "₹15,001–₹20,000",
+      "More than ₹20,000",
+    ],
   },
   {
     title: "Which additional facilities would you be willing to pay extra for?",
@@ -163,28 +199,38 @@ const questions = [
     multiple: true,
     layout: "grid grid-cols-2 gap-2",
     options: [
-      "Gym", "24/7 Security Guard", "Air Conditioning", "Single Occupancy Room",
-      "Weekend Recreation/Events", "High-speed Wi-Fi", "Study Lounge/Library Area",
-      "Personal Refrigerator", "In-room TV"
-    ]
+      "Gym",
+      "24/7 Security Guard",
+      "Air Conditioning",
+      "Single Occupancy Room",
+      "Weekend Recreation/Events",
+      "High-speed Wi-Fi",
+      "Study Lounge/Library Area",
+      "Personal Refrigerator",
+      "In-room TV",
+    ],
   },
   {
-    title: "How much extra would you be willing to pay for these premium facilities?",
+    title:
+      "How much extra would you be willing to pay for these premium facilities?",
     name: "extraPayment",
     multiple: false,
     layout: "space-y-2",
     options: [
-      "₹500–₹1,000", "₹1,001–₹2,000", "₹2,001–₹3,000",
-      "More than ₹3,000", "Not willing to pay extra"
-    ]
+      "₹500–₹1,000",
+      "₹1,001–₹2,000",
+      "₹2,001–₹3,000",
+      "More than ₹3,000",
+      "Not willing to pay extra",
+    ],
   },
   {
     title: "Would you recommend your current PG to others?",
     name: "recommend",
     multiple: false,
     layout: "space-y-2",
-    options: ["Yes", "No", "Maybe"]
-  }
+    options: ["Yes", "No", "Maybe"],
+  },
 ];
 
 export default QuesPage;
