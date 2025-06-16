@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 // The client you created from the Server-Side Auth instructions
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@workspace/supabase-provider/nextjs/server";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -26,6 +26,9 @@ export async function GET(request: Request) {
       } else {
         return NextResponse.redirect(`${origin}${next}`);
       }
+    } else {
+      console.error("An error occured while exchanging tokens");
+      console.error(error);
     }
   }
 

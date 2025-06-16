@@ -1,6 +1,5 @@
 "use client";
-
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@workspace/supabase-provider/nextjs/client";
 import { Button } from "@workspace/ui/components/button";
 import {
   Card,
@@ -25,6 +24,7 @@ function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
+
   const redirect = searchParams.get("redirectUrl") || "/";
   const handleSocialLogin = async (e: React.FormEvent) => {
     e.preventDefault();

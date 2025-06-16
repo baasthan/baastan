@@ -16,7 +16,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useAuth from "../hooks/use-auth";
 
 const AuthButton = () => {
-  const { isLoading, isLoggedIn, user, handeLogout } = useAuth();
+  const { isLoading, isLoggedIn, user, session, handeLogout } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const searchParam = useSearchParams();
@@ -24,6 +24,8 @@ const AuthButton = () => {
     const currentPath = `${pathname}?${searchParam.toString()}`;
     router.push(`/auth/login?redirectUrl=${currentPath}`);
   };
+
+  console.log(session);
 
   if (isLoading) {
     return (
