@@ -1,7 +1,8 @@
+
 --- USERS ---
 -- MV --
 create table if not exists public.users  (
-  id uuid primary key,
+  id text primary key,
   external_id text,
   username text,
   first_name text,
@@ -9,6 +10,7 @@ create table if not exists public.users  (
   attrs JSONB
 );
 
+insert into public.users (id,external_id,username,first_name,last_name,attrs) select id,external_id,username,first_name,last_name,attrs from integrations.clerk_wrapper_user;
 
 --- RBAC ---
 -- ACTIONS
