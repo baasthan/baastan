@@ -1,10 +1,13 @@
 {
-  "extends": "@workspace/typescript-config/react-library.json",
+  "extends": "@workspace/typescript-config/base.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@workspace/ui/*": [
+      "@workspace/database/*": [
         "./src/*"
+      ],
+      "@workspace/shared-types/*": [
+        "../shared-types/src/*"
       ]
     }
   },

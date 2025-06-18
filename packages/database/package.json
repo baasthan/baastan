@@ -1,0 +1,25 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.4.1",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "eslint": "^9.20.1",
+    "pg": "^8.16.0",
+    "postgres": "^3.4.7",
+    "typescript": "^5.8.3",
+    "@workspace/shared-types": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.15.4",
+    "ts-node": "^10.9.2"
+  }
+}
