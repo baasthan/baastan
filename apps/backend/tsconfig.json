@@ -9,7 +9,7 @@
       "@workspace/ui/*": [
         "../../packages/ui/src/*"
       ],
-      "@workspace/schema/*": [
+      "@workspace/schema": [
         "../../packages/schema/src/*"
       ]
     },
