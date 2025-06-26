@@ -7,7 +7,7 @@ export default function Index() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.replace('/(tabs)'); 
+      router.replace('/(tabs)');
     }, 2500);
     return () => clearTimeout(timer);
   }, [router]);

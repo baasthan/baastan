@@ -1,52 +1,28 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ScrollView, Modal, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import Logo from '../assets/images/logo.svg';
 import { Ionicons } from '@expo/vector-icons';
-
-const DRAWER_OPTIONS = [
-  { key: 'home', label: 'Home', icon: 'home-outline' },
-  { key: 'feedback', label: 'Feedback', icon: 'chatbubble-ellipses-outline' },
-  { key: 'rateus', label: 'Rate Us', icon: 'star-outline' },
-  { key: 'share', label: 'Share', icon: 'share-social-outline' },
-  { key: 'settings', label: 'Settings', icon: 'settings-outline' },
-];
+import { useDrawer } from '../app/(tabs)/_layout';
 
 export default function HomeScreen() {
-  const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('Buy');
+  const { openDrawer } = useDrawer();
 
   return (
-    <>
-      {/* Side Drawer */}
-      <Modal
-        visible={drawerVisible}
-        animationType="none"
-        transparent
-        onRequestClose={() => setDrawerVisible(false)}
-      >
-        <Pressable style={styles.drawerOverlay} onPress={() => setDrawerVisible(false)} />
-        <View style={styles.drawerContentAnimated}>
-          <Text style={styles.drawerTitle}>Menu</Text>
-          {DRAWER_OPTIONS.map(opt => (
-            <TouchableOpacity key={opt.key} style={styles.drawerItem}>
-              <Ionicons name={opt.icon as any} size={22} color="#3B47F6" style={{ marginRight: 16 }} />
-              <Text style={styles.drawerLabel}>{opt.label}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </Modal>
-      <ScrollView style={{ backgroundColor: '#fff' }} contentContainerStyle={styles.container}>
-        {/* Header with Hamburger */}
-        <View style={styles.header}>
-          <TouchableOpacity style={styles.hamburgerBtn} onPress={() => setDrawerVisible(true)}>
-            <Ionicons name="menu" size={28} color="#3B47F6" />
-          </TouchableOpacity>
-          <Logo width={36} height={36} />
-          <Text style={styles.brand}>baasthan</Text>
-          <TouchableOpacity style={styles.postBtn}>
-            <Text style={styles.postBtnText}>Post Property</Text>
-          </TouchableOpacity>
-        </View>
+    <ScrollView style={{ backgroundColor: '#fff' }}>
+      {/* Custom Header */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={openDrawer} style={{ marginRight: 10 }}>
+          <Ionicons name="menu" size={28} color="#3B47F6" />
+        </TouchableOpacity>
+        <Logo width={36} height={36} />
+        <Text style={styles.brand}>baasthan</Text>
+        <TouchableOpacity style={styles.postBtn}>
+          <Text style={styles.postBtnText}>Post Property</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.content}>
         {/* Location */}
         <View style={styles.locationRow}>
           <Text style={styles.locationIcon}>📍</Text>
@@ -84,27 +60,19 @@ export default function HomeScreen() {
             </View>
           ))}
         </View>
-      </ScrollView>
-    </>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    paddingTop: 48,
-    paddingBottom: 80, // more space for tab bar
-    backgroundColor: '#fff',
-  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '90%',
-    justifyContent: 'space-between',
-    marginBottom: 8,
-  },
-  hamburgerBtn: {
-    marginRight: 8,
+    paddingHorizontal: 18,
+    paddingTop: 48,
+    paddingBottom: 12,
+    backgroundColor: '#fff',
   },
   brand: {
     fontSize: 22,
@@ -118,17 +86,25 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingVertical: 6,
     paddingHorizontal: 14,
+    marginLeft: 8,
   },
   postBtnText: {
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 13,
   },
+  content: {
+    alignItems: 'center',
+    width: '100%',
+    paddingBottom: 80,
+    backgroundColor: '#fff',
+  },
   locationRow: {
     flexDirection: 'row',
     alignItems: 'center',
     width: '90%',
     marginBottom: 16,
+    marginTop: 8,
   },
   locationIcon: {
     fontSize: 18,
@@ -221,44 +197,5 @@ const styles = StyleSheet.create({
     color: '#3B47F6',
     fontWeight: 'bold',
     fontSize: 15,
-  },
-  drawerOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.2)',
-  },
-  drawerContentAnimated: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    bottom: 0,
-    width: 260,
-    backgroundColor: '#fff',
-    paddingTop: 48,
-    paddingHorizontal: 20,
-    shadowColor: '#000',
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
-    shadowOffset: { width: 2, height: 0 },
-    zIndex: 20,
-    // Slide in from left
-    transform: [{ translateX: 0 }],
-  },
-  drawerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#3B47F6',
-    marginBottom: 24,
-  },
-  drawerItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  drawerLabel: {
-    fontSize: 16,
-    color: '#3B47F6',
-    fontWeight: 'bold',
   },
 });
