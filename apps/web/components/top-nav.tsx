@@ -2,10 +2,12 @@ import { Button } from "@workspace/ui/components/button";
 import { Menu, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Logo from "../public/logo.svg";
+import AuthButton from "./auth-buttons";
 const TopNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="border-b p-2 w-full">
       <nav className="flex flex-row justify-between mx-auto max-w-6xl">
@@ -32,9 +34,9 @@ const TopNav = () => {
           <Button variant="link" asChild>
             <Link href="/contact">Contacts</Link>
           </Button>
-
-          <Button>Login</Button>
-          <Button variant="outline">Sign Up</Button>
+          <Suspense>
+            <AuthButton />
+          </Suspense>
         </div>
       </nav>
       {isOpen && (
@@ -47,10 +49,9 @@ const TopNav = () => {
             <Link href="/contact">Contacts</Link>
           </Button>
           <div className="flex flex-row gap-2 px-4">
-            <Button className="block">Login</Button>
-            <Button variant="outline" className="block">
-              Sign Up
-            </Button>
+            <Suspense>
+              <AuthButton />
+            </Suspense>
           </div>
         </div>
       )}

@@ -1,0 +1,22 @@
+import { updateSession } from "@workspace/supabase-provider/nextjs";
+import { NextResponse, type NextRequest } from "next/server";
+
+export async function middleware(request: NextRequest): Promise<NextResponse> {
+  return await updateSession(request);
+}
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
+     * Feel free to modify this pattern to include more paths.
+     *
+     * The pattern now includes the root route "/".
+     */
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
+};
