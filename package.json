@@ -12,6 +12,8 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@types/react": "^19.1.8",
+    "@types/react-native": "^0.73.0",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "husky": "^9.1.7",
@@ -28,8 +30,5 @@
       "core-js-pure",
       "sharp"
     ]
-  },
-  "dependencies": {
-    "framer-motion": "^12.16.0"
   }
 }
