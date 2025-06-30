@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Logo from '../assets/images/logo.svg'; // Adjust path if needed
+import Logo from '../assets/images/logo.svg'; 
 
 export default function IntroScreen() {
   return (
