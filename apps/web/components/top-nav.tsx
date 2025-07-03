@@ -1,3 +1,4 @@
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@workspace/ui/components/button";
 import { Menu, Plus } from "lucide-react";
 import Image from "next/image";
@@ -32,9 +33,12 @@ const TopNav = () => {
           <Button variant="link" asChild>
             <Link href="/contact">Contacts</Link>
           </Button>
-
-          <Button>Login</Button>
-          <Button variant="outline">Sign Up</Button>
+          <SignedOut>
+            <SignInButton mode="modal" withSignUp />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
       </nav>
       {isOpen && (
@@ -46,12 +50,6 @@ const TopNav = () => {
           <Button variant="link" className="block" asChild>
             <Link href="/contact">Contacts</Link>
           </Button>
-          <div className="flex flex-row gap-2 px-4">
-            <Button className="block">Login</Button>
-            <Button variant="outline" className="block">
-              Sign Up
-            </Button>
-          </div>
         </div>
       )}
     </div>
