@@ -7,7 +7,7 @@ import { Textarea } from "../../../packages/ui/src/components/textarea";
 export default function Footer() {
   return (
     <footer
-      className="w-full text-white py-8 mt-12"
+      className="w-full text-white py-8"
       style={{ backgroundColor: "oklch(0.5113 0.212 275.57)" }}
     >
       <div className="w-full">
