@@ -30,5 +30,8 @@
       "core-js-pure",
       "sharp"
     ]
+  },
+  "dependencies": {
+    "framer-motion": "^12.16.0"
   }
 }
