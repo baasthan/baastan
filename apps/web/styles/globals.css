@@ -4,5 +4,5 @@
 
 html,
 body {
-  @apply select-none;
+  /* @apply select-none; */
 }

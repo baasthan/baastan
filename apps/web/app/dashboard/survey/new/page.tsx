@@ -22,7 +22,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select";
-import { Switch } from "@workspace/ui/components/switch";
 import { Textarea } from "@workspace/ui/components/textarea";
 import { Loader2Icon, Trash2 } from "lucide-react";
 import React, { useState } from "react";
@@ -40,6 +39,8 @@ const NewSurveyPage = () => {
       },
     ],
   });
+
+  const optionRefs = React.useRef<Record<string, HTMLInputElement | null>>({});
 
   const {
     execute,
@@ -141,7 +142,6 @@ const NewSurveyPage = () => {
     const updatedQuestions = [...survey.questions];
     const currentQuestion = updatedQuestions[questionIndex];
     if (currentQuestion) {
-      console.log("valid current question");
       const currentQuestionOption = currentQuestion.questionOptions;
       if (currentQuestionOption) {
         const updatedQuestionQuestionOption = [
@@ -153,6 +153,11 @@ const NewSurveyPage = () => {
       updatedQuestions[questionIndex] = currentQuestion;
       console.log(updatedQuestions);
       setSurvey((value) => ({ ...value, questions: updatedQuestions }));
+
+      setTimeout(() => {
+        const refKey = `${questionIndex}-${currentQuestion.questionOptions!.length - 1}`;
+        optionRefs.current[refKey]?.focus();
+      }, 0);
     }
   };
 
@@ -258,8 +263,10 @@ const NewSurveyPage = () => {
                       <p>{String.fromCharCode(97 + optionIndex)}.</p>
                       <Input
                         key={optionIndex}
-                        autoFocus
                         value={option.optionText}
+                        ref={(el) => {
+                          optionRefs.current[`${index}-${optionIndex}`] = el;
+                        }}
                         placeholder="Enter Option"
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                           handleQuestionOptionTextChange(e, index, optionIndex);
@@ -267,6 +274,16 @@ const NewSurveyPage = () => {
                       />
                       <Button
                         variant={"ghost"}
+                        disabled={
+                          Array.isArray(question.questionOptions) &&
+                          ((["SINGLE_SELECT", "MULTI_SELECT"].includes(
+                            question.questionType
+                          ) &&
+                            question.questionOptions.length < 3) ||
+                            (question.questionType ===
+                              "MULTI_SELECT_WITH_OTHER" &&
+                              question.questionOptions.length < 2))
+                        }
                         onClick={() => handleOptionDelete(index, optionIndex)}
                       >
                         <Trash2 />
@@ -313,14 +330,6 @@ const NewSurveyPage = () => {
           >
             Add Question
           </Button>
-          <Switch
-            id="is-live"
-            checked={survey.isLive}
-            onCheckedChange={(isChecked) =>
-              setSurvey((value) => ({ ...value, isLive: isChecked }))
-            }
-          ></Switch>
-          <Label htmlFor="is-live">Airplane Mode</Label>
         </CardAction>
       </CardFooter>
     </Card>

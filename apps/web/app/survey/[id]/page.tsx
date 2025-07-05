@@ -35,7 +35,7 @@ export default async function Page({
         <h1 className="text-4xl font-bold  text-center text-indigo-700">
           {survey.surveyText}
         </h1>
-        <h3 className="scroll-m-20 text-2xl  font-semibold tracking-tight text-center">
+        <h3 className="scroll-m-20 text-lg  tracking-tight text-center">
           {survey.surveyDescription}
         </h3>
         <div className="mt-10">
