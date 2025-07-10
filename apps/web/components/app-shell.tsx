@@ -1,6 +1,5 @@
 "use client";
-
-import { Toaster } from "@workspace/ui/components/sonner";
+import React from "react"; 
 import Footer from "./footer";
 import TopNav from "./top-nav";
 
@@ -14,7 +13,6 @@ const AppShell = ({ children }: AppShellProps) => {
       <header className="sticky top-0 bg-white z-10">
         <TopNav />
       </header>
-      <Toaster position="top-right" />
       <main className="max-w-7xl mx-auto w-full px-4 flex-1">{children}</main>
       <Footer />
     </>
