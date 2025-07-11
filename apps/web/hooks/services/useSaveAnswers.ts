@@ -1,7 +1,7 @@
 import { BACKEND_API_HOST } from "@/constants/services";
 import { SaveAnswerSchema } from "@workspace/schema/answer";
 import { ApiResponse } from "@workspace/schema/response";
-import { toast } from "@workspace/ui/components/sonner";
+import { toast } from "sonner";
 import useService from "../useService";
 
 const useSaveAnswers = () => {

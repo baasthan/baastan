@@ -3,7 +3,7 @@ import { useAuth } from "@clerk/nextjs";
 import { ERROR_CODES } from "@workspace/constants/errorCodes";
 import { CreateSurveyProps } from "@workspace/schema/questions";
 import { ApiResponse } from "@workspace/schema/response";
-import { toast } from "@workspace/ui/components/sonner";
+import { toast } from "sonner";
 import useService from "../useService";
 
 const useSaveQuestioniare = () => {
