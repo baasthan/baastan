@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import Footer from "./footer";
+import Header from "./header";
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -8,11 +10,9 @@ interface AppShellProps {
 const AppShell = ({ children }: AppShellProps) => {
   return (
     <>
-      {/* <header className="sticky top-0 bg-white z-10">
-        <TopNav />
-      </header> */}
+      <Header />
       <main className="w-full  flex-1">{children}</main>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };
