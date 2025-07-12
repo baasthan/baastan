@@ -9,7 +9,7 @@ const Header = () => {
 
   return (
     <header
-      className={`shadow-sm  sticky top-0 z-50 transition-colors duration-300 bg-white`}
+      className={`shadow-sm fixed w-full top-0 z-50 transition-colors duration-300 bg-white`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
