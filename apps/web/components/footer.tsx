@@ -42,7 +42,10 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a
+                  href="#how-it-works"
+                  className="hover:text-white transition-colors"
+                >
                   How It Works
                 </a>
               </li>
