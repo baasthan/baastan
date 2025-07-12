@@ -34,25 +34,6 @@ const MainHero = () => {
               <div className="grid md:grid-cols-4 gap-4">
                 <div className="md:col-span-2">
                   <div className="relative">
-                    {/* <svg
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                          clipRule="evenodd"
-                        />
-                      </svg> */}
-                    {/* <input
-                        type="text"
-                        placeholder="Enter city or locality"
-                        value={searchLocation}
-                        onChange={handleLocationChange}
-                        className="pl-10 h-12 w-full border border-gray-200 rounded-md  focus:border-primary focus:outline-none px-3"
-                      /> */}
-
                     <Input
                       type="text"
                       icon={Search}
@@ -63,15 +44,6 @@ const MainHero = () => {
                   </div>
                 </div>
                 <div>
-                  {/* <input
-                        type="text"
-                        placeholder="Budget (₹)"
-                        value={budget}
-                        onChange={handleBudgetChange}
-                        className="h-12 w-full border border-gray-200 rounded-md focus:border-blue-500 focus:outline-none px-3 "
-                      /> */}
-                  {/* <Slider defaultValue={[33]} max={100} step={1} /> */}
-
                   <Input
                     type="text"
                     icon={IndianRupee}
