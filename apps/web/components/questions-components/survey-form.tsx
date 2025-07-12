@@ -2,7 +2,7 @@
 import useSaveAnswers from "@/hooks/services/useSaveAnswers";
 import {
   AnswerRecord,
-  AnswerSchema,
+  AnswerRecordSchema,
   MultiSelectAnswer,
 } from "@workspace/schema/answer";
 import { Survey } from "@workspace/schema/questions";
@@ -11,7 +11,6 @@ import { Card, CardContent, CardHeader } from "@workspace/ui/components/card";
 import { Input } from "@workspace/ui/components/input";
 import { Textarea } from "@workspace/ui/components/textarea";
 import React, { useState } from "react";
-import z from "zod";
 
 import { Loader2Icon } from "lucide-react";
 import MultiSelect from "./multi-select";
@@ -28,15 +27,30 @@ const SurveyForm = ({ survey }: SurveyFormProps) => {
     useSaveAnswers();
   const [answers, setAnswers] = useState<AnswerRecord>({});
   const requiredQuestionIds = survey.questions.map((q) => q.id);
-  const dynamicAnswerRecordSchema = z.object(
-    Object.fromEntries(requiredQuestionIds.map((id) => [id, AnswerSchema]))
-  );
-  const handleOnSubmit = async () => {
-    execute({ questioniareId: id, response: parsedAnswers });
+
+  // Validate that all required questions have answers
+  const validateAnswers = () => {
+    const result = AnswerRecordSchema.safeParse(answers);
+    if (!result.success) return { isValid: false, data: null };
+
+    // Check if all required questions have answers
+    const hasAllRequiredAnswers = requiredQuestionIds.every(
+      (id) => id in answers && answers[id] !== undefined
+    );
+
+    return {
+      isValid: hasAllRequiredAnswers,
+      data: hasAllRequiredAnswers ? result.data : null,
+    };
   };
 
-  const { success: isSchemaValid, data: parsedAnswers } =
-    dynamicAnswerRecordSchema.safeParse(answers);
+  const { isValid: isSchemaValid, data: parsedAnswers } = validateAnswers();
+
+  const handleOnSubmit = async () => {
+    if (parsedAnswers) {
+      execute({ questioniareId: id, response: parsedAnswers });
+    }
+  };
 
   return (
     <div className="flex flex-col gap-y-4">

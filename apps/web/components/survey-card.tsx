@@ -10,8 +10,8 @@ import {
   CardHeader,
 } from "@workspace/ui/components/card";
 import { Label } from "@workspace/ui/components/label";
-import { toast } from "@workspace/ui/components/sonner";
 import { Switch } from "@workspace/ui/components/switch";
+import { toast } from "sonner";
 
 interface SurveyCardProps {
   survey: Omit<Survey, "questions">;
