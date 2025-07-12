@@ -5,6 +5,7 @@ import MainHero from "@/components/home/main-hero";
 import PopularCities from "@/components/home/popular-cities";
 import Testimonials from "@/components/home/testimonials";
 import WhyChooseUs from "@/components/home/why-choose-us";
+import React from "react";
 
 export default function Page() {
   return (
