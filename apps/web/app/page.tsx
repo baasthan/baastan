@@ -8,7 +8,7 @@ import WhyChooseUs from "@/components/home/why-choose-us";
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="">
       {/* Hero Section */}
       <MainHero />
       {/* Popular Cities */}

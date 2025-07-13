@@ -1,21 +1,3 @@
-// "use client";
-// import SingleSelect from "@/components/questions-components/dashboard/single-select";
-// import { BACKEND_API_HOST } from "@/constants/services";
-// import { useAuth } from "@clerk/nextjs";
-// import {
-//   CreateQuestionProps,
-//   CreateSurveyProps,
-//   CreateSurveySchema,
-// } from "@workspace/schema/questions";
-// import { Button } from "@workspace/ui/components/button";
-// import {
-//   Card,
-//   CardAction,
-//   CardContent,
-//   CardHeader,
-// } from "@workspace/ui/components/card";
-// import { useCallback, useState } from "react";
-
 import SurveyCards from "@/components/survey-card";
 import { BACKEND_API_HOST } from "@/constants/services";
 import { auth } from "@clerk/nextjs/server";

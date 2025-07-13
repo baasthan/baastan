@@ -1,14 +1,18 @@
 import getCorsHeaders from "@/constants/corsHeader";
+import { auth } from "@/lib/auth";
 import { getSurveys, updateSurveyStatus } from "@/repository/questions";
 import { hasPermission } from "@/services/user-permissions";
-import { auth } from "@clerk/nextjs/server";
+
 import { NETWORK_ERROR_CODES } from "@workspace/constants/errorCodes";
+import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 export async function GET() {
-  const { userId } = await auth();
-  if (!userId) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!(session && session.user)) {
     return NextResponse.json(NETWORK_ERROR_CODES.UNAUTHENTICATED.body, {
       status: NETWORK_ERROR_CODES.UNAUTHENTICATED.init.status,
       headers: { ...getCorsHeaders("GET") },
@@ -16,7 +20,7 @@ export async function GET() {
   }
 
   const isAuthorized = await hasPermission(
-    userId,
+    session.user.id,
     "dashboard.survey",
     "select"
   );
@@ -43,8 +47,10 @@ export async function GET() {
 }
 
 export async function PUT(req: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!(session && session.user)) {
     return NextResponse.json(NETWORK_ERROR_CODES.UNAUTHENTICATED.body, {
       status: NETWORK_ERROR_CODES.UNAUTHENTICATED.init.status,
       headers: { ...getCorsHeaders("PUT") },
@@ -52,7 +58,7 @@ export async function PUT(req: NextRequest) {
   }
 
   const isAuthorized = await hasPermission(
-    userId,
+    session.user.id,
     "dashboard.survey",
     "update"
   );

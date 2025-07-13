@@ -1,54 +1,31 @@
-import { ROUTE_PERMISSIONS_MAP } from "@/constants/routePermissions";
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { Permission } from "@workspace/schema/permission";
-import { NextResponse } from "next/server";
-import { BACKEND_API_HOST } from "./constants/services";
-import { hasPermission } from "./lib/hasPermission";
+import { getSessionCookie } from "better-auth/cookies";
+import { NextRequest, NextResponse } from "next/server";
+import { APP_CONFIG, AUTH_CONFIG } from "./config";
+import { createRouteMatcher } from "./utils/routeMatcher";
 
-const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
+const publicRoutes = ["/", "/about"];
+const publicMatcher = createRouteMatcher(publicRoutes);
 
-export default clerkMiddleware(async (auth, req) => {
-  const { userId, redirectToSignIn, getToken } = await auth();
-  const token = await getToken();
-  const response = await fetch(`${BACKEND_API_HOST}/auth/permissions`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export async function middleware(request: NextRequest) {
+  const sessionCookie = getSessionCookie(request);
 
-  const pathname = req.nextUrl.pathname;
-
-  if (isProtectedRoute(req)) {
-    if (!userId) {
-      return redirectToSignIn();
-    }
-    if (!response.ok) {
-      return NextResponse.rewrite(new URL("/error", req.url));
-    }
-    const { roles } = await response.json();
-    const permissions: Permission[] = roles;
-    const requiredPermission =
-      ROUTE_PERMISSIONS_MAP[pathname as keyof typeof ROUTE_PERMISSIONS_MAP] ||
-      undefined;
-
-    const isAuthorized =
-      requiredPermission &&
-      hasPermission(
-        requiredPermission.resource,
-        requiredPermission.action,
-        permissions
-      );
-    console.log("IsAuthorized===>", isAuthorized);
-    if (!isAuthorized) {
-      return NextResponse.rewrite(new URL("/error", req.url));
-    }
-    return NextResponse.next();
-    // Add custom logic to run before redirecting
+  // THIS IS NOT SECURE!
+  // This is the recommended approach to optimistically redirect users
+  // We recommend handling auth checks in each page/route
+  if (!sessionCookie && publicMatcher(request.nextUrl.href)) {
+    const currentUrl = request.nextUrl.href;
+    const searchParams = new URLSearchParams();
+    searchParams.set("redirect", currentUrl);
+    searchParams.set(AUTH_CONFIG.SIGN_IN_PROMPT, "true");
+    const redirectUrl = new URL(
+      `?${searchParams.toString()}`,
+      APP_CONFIG.BASE_URL
+    );
+    return NextResponse.redirect(redirectUrl);
   }
-});
 
+  return NextResponse.next();
+}
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params

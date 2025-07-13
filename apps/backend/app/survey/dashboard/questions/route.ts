@@ -1,21 +1,25 @@
 import getCorsHeaders from "@/constants/corsHeader";
+import { auth } from "@/lib/auth";
 import { createSurvey } from "@/services/dashboard-questioniare";
 import { hasPermission } from "@/services/user-permissions";
-import { auth } from "@clerk/nextjs/server";
+
 import { NETWORK_ERROR_CODES } from "@workspace/constants/errorCodes";
 import { CreateSurveySchema } from "@workspace/schema/questions";
+import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!(session && session.user)) {
     return NextResponse.json(NETWORK_ERROR_CODES.UNAUTHENTICATED.body, {
       status: NETWORK_ERROR_CODES.UNAUTHENTICATED.init.status,
       headers: { ...getCorsHeaders("POST") },
     });
   }
   const isAuthorized = await hasPermission(
-    userId,
+    session.user.id,
     "dashboard.survey",
     "insert"
   );

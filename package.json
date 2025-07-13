@@ -26,7 +26,12 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "@clerk/shared",
+      "@prisma/client",
+      "@prisma/engines",
+      "@tailwindcss/oxide",
+      "@vercel/speed-insights",
       "core-js-pure",
+      "prisma",
       "sharp",
       "unrs-resolver"
     ]

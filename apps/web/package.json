@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "react-hook-form": "^7.60.0",
     "@clerk/nextjs": "^6.22.0",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.1.1",
@@ -24,6 +25,7 @@
     "@workspace/constants": "workspace:*",
     "@workspace/schema": "workspace:*",
     "@workspace/ui": "workspace:*",
+    "better-auth": "^1.2.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-zod": "^0.8.2",
@@ -34,7 +36,6 @@
     "next-themes": "^0.4.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.58.1",
     "sonner": "^2.0.5",
     "tailwind-merge": "^3.0.1",
     "tailwind-variants": "^1.0.0",

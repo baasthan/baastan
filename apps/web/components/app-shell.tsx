@@ -13,7 +13,9 @@ const AppShell = ({ children }: AppShellProps) => {
     <>
       <Header />
       <Toaster position="top-right" />
-      <main className="mx-auto md:px-4 pt-8 w-full flex-1">{children}</main>
+      <main className="mx-auto pt-16 w-full flex-1 bg-white min-h-screen">
+        {children}
+      </main>
       <Footer />
     </>
   );
