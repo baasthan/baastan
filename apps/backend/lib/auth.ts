@@ -1,13 +1,26 @@
 import { APP_CONFIG, AUTH_CONFIG } from "@/config";
 import { PrismaClient } from "@/generated/prisma";
+import {
+  appAC,
+  contentAdminRole,
+  contentCreatorRole,
+  endUserRole,
+  hostUserRole,
+  superAdminRole,
+} from "@workspace/constants/appRoles";
+import {
+  ownerRole,
+  propertiesAcc,
+  tenantRole,
+} from "@workspace/constants/propertiesRoles";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
-import { haveIBeenPwned } from "better-auth/plugins";
+import { admin, haveIBeenPwned, jwt, organization } from "better-auth/plugins";
 
 const prisma = new PrismaClient();
 
-const auth: ReturnType<typeof betterAuth> = betterAuth({
+const auth = betterAuth({
   appName: APP_CONFIG.APP_NAME,
   baseURL: "http://localhost:4000",
   trustedOrigins: ["http://localhost:3000"],
@@ -22,6 +35,43 @@ const auth: ReturnType<typeof betterAuth> = betterAuth({
     haveIBeenPwned({
       customPasswordCompromisedMessage:
         "This password has been found in some data breaches. Please try any other password",
+    }),
+    admin({
+      ac: appAC,
+      impersonationSessionDuration: 0,
+      permitImpersonation: false,
+      defaultRole: "endUserRole",
+      roles: {
+        superAdminRole,
+        hostUserRole,
+        contentAdminRole,
+        contentCreatorRole,
+        endUserRole,
+      },
+    }),
+    organization({
+      ac: propertiesAcc,
+      roles: {
+        tenantRole,
+        ownerRole,
+      },
+
+      organizationCreation: { disabled: false },
+      organizationDeletion: { disabled: true },
+    }),
+
+    jwt({
+      jwt: {
+        definePayload({ user, session }) {
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            orgRole: session.activeOrganizationRole,
+          };
+        },
+      },
     }),
   ],
   emailAndPassword: {

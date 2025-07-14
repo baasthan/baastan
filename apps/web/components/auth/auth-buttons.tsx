@@ -40,9 +40,7 @@ import SignUp from "./sign-up";
 const AuthButtons = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [openDialog, setOpenDialog] = useState<boolean>(
-    searchParams.get(AUTH_CONFIG.SIGN_IN_PROMPT) === "true" || false
-  );
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
 
   const { data, isPending } = useSession();
@@ -58,6 +56,12 @@ const AuthButtons = () => {
       }
     }
   }, [data]);
+
+  useEffect(() => {
+    if (searchParams.get(AUTH_CONFIG.SIGN_IN_PROMPT) === "true") {
+      setOpenDialog(true);
+    }
+  }, [searchParams]);
 
   const handleSignOut = async () => {
     const currentUrl = window.location.href;

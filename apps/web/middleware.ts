@@ -8,11 +8,12 @@ const publicMatcher = createRouteMatcher(publicRoutes);
 
 export async function middleware(request: NextRequest) {
   const sessionCookie = getSessionCookie(request);
+  const pathName = request.nextUrl.pathname;
 
   // THIS IS NOT SECURE!
   // This is the recommended approach to optimistically redirect users
   // We recommend handling auth checks in each page/route
-  if (!sessionCookie && publicMatcher(request.nextUrl.href)) {
+  if (!sessionCookie && !publicMatcher(pathName)) {
     const currentUrl = request.nextUrl.href;
     const searchParams = new URLSearchParams();
     searchParams.set("redirect", currentUrl);

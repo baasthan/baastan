@@ -9,23 +9,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 export async function GET() {
-  const session = await auth.api.getSession({
+  const { error, success } = await auth.api.userHasPermission({
+    body: {
+      permissions: {
+        survey: ["view"],
+      },
+    },
     headers: await headers(),
   });
-  if (!(session && session.user)) {
-    return NextResponse.json(NETWORK_ERROR_CODES.UNAUTHENTICATED.body, {
-      status: NETWORK_ERROR_CODES.UNAUTHENTICATED.init.status,
-      headers: { ...getCorsHeaders("GET") },
-    });
-  }
 
-  const isAuthorized = await hasPermission(
-    session.user.id,
-    "dashboard.survey",
-    "select"
-  );
-
-  if (!isAuthorized) {
+  if (!success || error) {
     return NextResponse.json(NETWORK_ERROR_CODES.UNAUTHORIZED.body, {
       status: NETWORK_ERROR_CODES.UNAUTHORIZED.init.status,
       headers: { ...getCorsHeaders("POST") },

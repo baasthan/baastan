@@ -1,6 +1,32 @@
+import { authClient } from "@/lib/auth-client";
+import { headers } from "next/headers";
 import Link from "next/link";
 
-export default function Page() {
+export default async function Page() {
+  const { data, error } = await authClient.admin.hasPermission({
+    permissions: {
+      appDashBoard: ["view"],
+    },
+    fetchOptions: {
+      headers: await headers(),
+    },
+  });
+
+  if (!(data && data.success)) {
+    return (
+      <div className="flex items-center justify-center min-h-svh">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Access Denied</h1>
+          <p className="text-gray-600">
+            Please do not wander in restricetd areas.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Check if user has dashboard access permission
+
   return (
     <div className="flex items-center justify-between min-h-svh">
       <Link
@@ -16,6 +42,7 @@ export default function Page() {
           Create Surveys
         </p>
       </Link>
+      <Link href="/dashboard/blogs">Blogs</Link>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import SurveyCards from "@/components/survey-card";
 import { BACKEND_API_HOST } from "@/constants/services";
-import { auth } from "@clerk/nextjs/server";
+import { authClient } from "@/lib/auth-client";
+import { appAC } from "@workspace/constants/appRoles";
 import { Survey } from "@workspace/schema/questions";
 import { ApiResponse } from "@workspace/schema/response";
 import { Button } from "@workspace/ui/components/button";
@@ -11,6 +12,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@workspace/ui/components/card";
+import { headers } from "next/headers";
 import Link from "next/link";
 
 // const page = () => {
@@ -114,12 +116,31 @@ import Link from "next/link";
 // export default page;
 
 export default async function Page() {
-  const { getToken } = await auth();
-  const token = await getToken();
-  const response = await fetch(`${BACKEND_API_HOST}/survey/dashboard`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const { data, error } = await authClient.admin.hasPermission({
+    permissions: {
+      survey: ["view"],
     },
+    fetchOptions: {
+      headers: await headers(),
+    },
+  });
+
+  appAC.statements.support;
+  console.log("presission===>", data, error);
+  if (!(data && data.success)) {
+    return (
+      <div className="flex items-center justify-center min-h-svh">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Access Denied</h1>
+          <p className="text-gray-600">
+            Please do not wander in restricetd areas.
+          </p>
+        </div>
+      </div>
+    );
+  }
+  const response = await fetch(`${BACKEND_API_HOST}/api/survey/dashboard`, {
+    headers: await headers(),
   });
   const responseBody: ApiResponse<Omit<Survey, "questions">[]> =
     await response.json();
