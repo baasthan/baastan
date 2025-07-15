@@ -1,5 +1,4 @@
 import { APP_CONFIG, AUTH_CONFIG } from "@/config";
-import { PrismaClient } from "@/generated/prisma";
 import {
   appAC,
   contentAdminRole,
@@ -18,7 +17,13 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
 import { admin, haveIBeenPwned, jwt, organization } from "better-auth/plugins";
 
-const prisma = new PrismaClient();
+import { PrismaClient } from "@/generated/prisma";
+import { withOptimize } from "@prisma/extension-optimize";
+
+const prisma = new PrismaClient().$extends(
+  withOptimize({ apiKey: process.env.OPTIMIZE_API_KEY! })
+);
+// const prisma = new PrismaClient().$extends(withAccelerate({}));
 
 const auth = betterAuth({
   appName: APP_CONFIG.APP_NAME,

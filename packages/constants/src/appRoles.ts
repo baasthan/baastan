@@ -1,6 +1,7 @@
 import { createAccessControl } from "better-auth/plugins/access";
 
-const appDashBoard = ["view"] as const;
+const appDashBoard = ["view"] as readonly string[];
+
 const blogs = [
   "insert",
   "update",
@@ -8,9 +9,10 @@ const blogs = [
   "go-live",
   "public_view",
   "delete",
-] as const;
+  "view_all",
+] as readonly string[];
 
-const support = ["*"] as const;
+const support = ["*"] as readonly string[];
 
 const survey = [
   "view",
@@ -19,8 +21,16 @@ const survey = [
   "analyze",
   "go-live",
   "delete",
-] as const;
-const userManagement = ["insert", "*", "update", "invite", "delete"] as const;
+] as readonly string[];
+
+const userManagement = [
+  "insert",
+  "*",
+  "update",
+  "invite",
+  "delete",
+] as readonly string[];
+
 const property = [
   "insert",
   "update",
@@ -28,10 +38,15 @@ const property = [
   "verify",
   "getOwner",
   "view_all",
-] as const;
-const userRoleManagement = ["*"] as const;
+] as readonly string[];
+const userRoleManagement = ["*"] as readonly string[];
 
-const subscription = ["create", "viewOwn", "delete", "viewAll"] as const;
+const subscription = [
+  "create",
+  "viewOwn",
+  "delete",
+  "viewAll",
+] as readonly string[];
 
 const appAC = createAccessControl({
   appDashBoard,
@@ -46,7 +61,7 @@ const appAC = createAccessControl({
 
 const superAdminRole = appAC.newRole({
   appDashBoard: ["view"],
-  blogs: ["insert", "update", "export", "go-live"],
+  blogs: ["insert", "update", "export", "go-live", "view_all", "public_view"],
   support: ["*"],
   survey: ["insert", "update", "analyze", "go-live", "view", "delete"],
   userManagement: ["*"],

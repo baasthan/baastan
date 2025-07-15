@@ -19,7 +19,7 @@
     "turbo": "^2.4.2",
     "typescript": "5.7.3"
   },
-  "packageManager": "pnpm@10.4.1",
+  "packageManager": "pnpm@10.13.1",
   "engines": {
     "node": ">=20"
   },
@@ -31,6 +31,7 @@
       "@tailwindcss/oxide",
       "@vercel/speed-insights",
       "core-js-pure",
+      "esbuild",
       "prisma",
       "sharp",
       "unrs-resolver"

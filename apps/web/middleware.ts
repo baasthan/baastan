@@ -13,6 +13,7 @@ export async function middleware(request: NextRequest) {
   // THIS IS NOT SECURE!
   // This is the recommended approach to optimistically redirect users
   // We recommend handling auth checks in each page/route
+  console.log("isPublic===>", publicMatcher(pathName));
   if (!sessionCookie && !publicMatcher(pathName)) {
     const currentUrl = request.nextUrl.href;
     const searchParams = new URLSearchParams();

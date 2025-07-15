@@ -1,3 +1,4 @@
+import AccessDenied from "@/app/access-denied/page";
 import SurveyCards from "@/components/survey-card";
 import { BACKEND_API_HOST } from "@/constants/services";
 import { authClient } from "@/lib/auth-client";
@@ -128,16 +129,7 @@ export default async function Page() {
   appAC.statements.support;
   console.log("presission===>", data, error);
   if (!(data && data.success)) {
-    return (
-      <div className="flex items-center justify-center min-h-svh">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Access Denied</h1>
-          <p className="text-gray-600">
-            Please do not wander in restricetd areas.
-          </p>
-        </div>
-      </div>
-    );
+    return AccessDenied();
   }
   const response = await fetch(`${BACKEND_API_HOST}/api/survey/dashboard`, {
     headers: await headers(),
