@@ -1,4 +1,5 @@
 import { APP_CONFIG, AUTH_CONFIG } from "@/config";
+import { PrismaClient } from "@/generated/prisma";
 import {
   appAC,
   contentAdminRole,
@@ -17,7 +18,8 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
 import { admin, haveIBeenPwned, jwt, organization } from "better-auth/plugins";
 
-import { PrismaClient } from "@/generated/prisma";
+console.log("DATABASE_URL======>", process.env.DATABASE_URL);
+
 import { withOptimize } from "@prisma/extension-optimize";
 
 const prisma = new PrismaClient().$extends(
