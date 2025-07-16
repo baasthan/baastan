@@ -1,5 +1,4 @@
 import { APP_CONFIG, AUTH_CONFIG } from "@/config";
-import { PrismaClient } from "@/generated/prisma";
 import {
   appAC,
   contentAdminRole,
@@ -18,13 +17,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
 import { admin, haveIBeenPwned, jwt, organization } from "better-auth/plugins";
 
-console.log("DATABASE_URL======>", process.env.DATABASE_URL);
-
-import { withOptimize } from "@prisma/extension-optimize";
-
-const prisma = new PrismaClient().$extends(
-  withOptimize({ apiKey: process.env.OPTIMIZE_API_KEY! })
-);
+import { getPrismaClient } from "./prismaClient";
 
 const auth = betterAuth({
   appName: APP_CONFIG.APP_NAME,
@@ -33,7 +26,7 @@ const auth = betterAuth({
   advanced: {
     useSecureCookies: true,
   },
-  database: prismaAdapter(prisma, {
+  database: prismaAdapter(getPrismaClient(), {
     provider: "postgresql",
   }),
   plugins: [
