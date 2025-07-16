@@ -1,8 +1,9 @@
-import { Prisma, PrismaClient } from "@/generated/prisma";
+import { Prisma } from "@/generated/prisma";
+import { getPrismaClient } from "@/lib/prismaClient";
 
 const insertBlogRecord = async (data: Prisma.blogCreateArgs["data"]) => {
   try {
-    const prisma = new PrismaClient();
+    const prisma = getPrismaClient();
     const newBlog = await prisma.blog.create({
       data,
       select: {
