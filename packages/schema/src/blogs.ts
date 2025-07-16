@@ -5,4 +5,7 @@ const createBlogsSchema = z.object({
   content: z.string().min(1, "Please add the content"),
 });
 
+type CreateBlogType = z.infer<typeof createBlogsSchema>;
+
 export { createBlogsSchema };
+export type { CreateBlogType };

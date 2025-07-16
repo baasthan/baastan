@@ -23,7 +23,6 @@ import { withOptimize } from "@prisma/extension-optimize";
 const prisma = new PrismaClient().$extends(
   withOptimize({ apiKey: process.env.OPTIMIZE_API_KEY! })
 );
-// const prisma = new PrismaClient().$extends(withAccelerate({}));
 
 const auth = betterAuth({
   appName: APP_CONFIG.APP_NAME,

@@ -5,7 +5,18 @@ const allowedOrigins = ["https://baasthan.com", "http://localhost:3000"];
 const corsOptions = {
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
   "Access-Control-Allow-Credentials": "true",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  "Access-Control-Allow-Headers": [
+    "Accept",
+    "Accept-Language",
+    "Cache-Control",
+    "Content-Type",
+    "Pragma",
+    "X-Forwarded-For",
+    "X-Forwarded-Host",
+    "X-Forwarded-Port",
+    "X-Forwarded-Proto",
+    "Upgrade-Insecure-requests",
+  ].join(", "),
 };
 
 export function middleware(request: NextRequest) {
@@ -39,14 +50,10 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: "/api/:path*",
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
+    "/(api|trpc)(.*)",
+  ],
 };
-
-// export const config = {
-//   matcher: [
-//     // Skip Next.js internals and all static files, unless found in search params
-//     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-//     // Always run for API routes
-//     "/(api|trpc)(.*)",
-//   ],
-// };

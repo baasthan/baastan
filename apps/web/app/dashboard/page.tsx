@@ -1,6 +1,7 @@
 import { authClient } from "@/lib/auth-client";
 import { headers } from "next/headers";
 import Link from "next/link";
+import AccessDenied from "../access-denied/page";
 
 export default async function Page() {
   const { data, error } = await authClient.admin.hasPermission({
@@ -13,16 +14,7 @@ export default async function Page() {
   });
 
   if (!(data && data.success) || error) {
-    return (
-      <div className="flex items-center justify-center min-h-svh">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Access Denied</h1>
-          <p className="text-gray-600">
-            Please do not wander in restricetd areas.
-          </p>
-        </div>
-      </div>
-    );
+    return AccessDenied();
   }
 
   // Check if user has dashboard access permission
